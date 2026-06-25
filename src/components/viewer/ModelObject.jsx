@@ -1,6 +1,7 @@
 import { useLoader, useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
+import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { TextureLoader, MeshStandardMaterial, Box3, Vector3 } from 'three'
 import { useMemo, useRef, useLayoutEffect } from 'react'
 
@@ -13,6 +14,7 @@ export function ModelObject({ id, name, objUrl, texture: textureUrl, roughness =
     const clone = obj.clone(true)
     clone.traverse(child => {
       if (!child.isMesh) return
+      child.geometry = mergeVertices(child.geometry)
       child.geometry.computeVertexNormals()
       child.material = new MeshStandardMaterial({
         map: textureUrl ? texture : null,
