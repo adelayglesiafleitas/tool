@@ -196,9 +196,16 @@ export default function Viewer({ onBack }) {
 
   const selected = objects.find(o => o.id === selectedId)
   const mat = selected?.mat ?? DEF_MAT
+  const [showScene, setShowScene] = useState(false)
+  const [showInspector, setShowInspector] = useState(false)
 
   return (
     <div className="viewer-shell" onDrop={handleDrop} onDragOver={e => e.preventDefault()}>
+
+      {/* Overlay backdrop para móvil */}
+      {(showScene || showInspector) && (
+        <div className="panel-backdrop" onClick={() => { setShowScene(false); setShowInspector(false) }} />
+      )}
 
       {/* ── Topbar ── */}
       <header className="viewer-topbar">
@@ -206,7 +213,7 @@ export default function Viewer({ onBack }) {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span>WORKSPACE</span>
+          <span className="back-label">WORKSPACE</span>
         </button>
         <div className="topbar-title">
           <svg width="18" height="18" viewBox="0 0 28 28" fill="none">
@@ -216,6 +223,13 @@ export default function Viewer({ onBack }) {
           <span>3D VIEWER</span>
         </div>
         <div className="topbar-actions">
+          {/* Botones toggle para móvil */}
+          <button className="toolbar-btn panel-toggle" onClick={() => { setShowScene(s => !s); setShowInspector(false) }} title="Escena">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="1.5" fill="currentColor" rx="0.5"/><rect x="1" y="6" width="8" height="1.5" fill="currentColor" rx="0.5"/><rect x="1" y="10" width="10" height="1.5" fill="currentColor" rx="0.5"/></svg>
+          </button>
+          <button className="toolbar-btn panel-toggle" onClick={() => { setShowInspector(s => !s); setShowScene(false) }} title="Inspector">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.2" fill="none"/><line x1="1" y1="5" x2="13" y2="5" stroke="currentColor" strokeWidth="0.8"/><line x1="5" y1="5" x2="5" y2="13" stroke="currentColor" strokeWidth="0.8"/></svg>
+          </button>
           <button className="toolbar-btn" onClick={() => inputRef.current?.click()}>+ Importar</button>
           <input ref={inputRef} type="file" accept=".obj,.stl,.glb,.gltf" multiple style={{display:'none'}}
             onChange={e => {
@@ -232,7 +246,7 @@ export default function Viewer({ onBack }) {
       <div className="viewer-body">
 
         {/* ── Scene panel (izquierda) ── */}
-        <aside className="scene-panel">
+        <aside className={`scene-panel ${showScene ? 'panel-open' : ''}`}>
           <div className="ms-scene-header">ESCENA</div>
 
           <div className="ms-scene-group">
@@ -295,7 +309,7 @@ export default function Viewer({ onBack }) {
         </main>
 
         {/* ── Inspector (derecha, estilo Marmoset) ── */}
-        <aside className="ms-inspector">
+        <aside className={`ms-inspector ${showInspector ? 'panel-open' : ''}`}>
 
           {/* Objeto seleccionado */}
           {inspecting === 'object' && selected && (
