@@ -157,7 +157,9 @@ export default function Viewer({ onBack }) {
   const [boundsMap, setBoundsMap] = useState({})
   const [selectedId, setSelectedId] = useState(null)
   const [lights, setLights] = useState(DEF_LIGHTS)
-  const [inspecting, setInspecting] = useState('object') // 'object' | 'light'
+  const [inspecting, setInspecting] = useState('object')
+  const [rotatingIds, setRotatingIds] = useState(new Set())
+  const [autoRotate, setAutoRotate] = useState(true)
   const inputRef = useRef()
   const controlsRef = useRef()
 
@@ -299,7 +301,17 @@ export default function Viewer({ onBack }) {
                   color={obj.mat.albedo} wireframe={obj.mat.wireframe}
                   position={positions ? positions[i] : [0,0,0]}
                   selected={selectedId === obj.id}
-                  onClick={() => { setSelectedId(obj.id); setInspecting('object') }}
+                  rotating={rotatingIds.has(obj.id)}
+                  onClick={() => {
+                    setSelectedId(obj.id)
+                    setInspecting('object')
+                    setRotatingIds(prev => new Set([...prev, obj.id]))
+                  }}
+                  onToggleRotate={() => setRotatingIds(prev => {
+                    const next = new Set(prev)
+                    next.has(obj.id) ? next.delete(obj.id) : next.add(obj.id)
+                    return next
+                  })}
                   onLayout={handleLayout}
                 />
               ))}

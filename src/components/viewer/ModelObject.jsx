@@ -5,7 +5,7 @@ import { toCreasedNormals } from 'three/examples/jsm/utils/BufferGeometryUtils.j
 import { TextureLoader, MeshStandardMaterial, Box3, Vector3 } from 'three'
 import { useMemo, useRef, useLayoutEffect } from 'react'
 
-export function ModelObject({ id, name, objUrl, texture: textureUrl, roughness = 0.6, metalness = 0.1, color = '#ffffff', wireframe = false, position = [0, 0, 0], selected, onClick, onLayout }) {
+export function ModelObject({ id, name, objUrl, texture: textureUrl, roughness = 0.6, metalness = 0.1, color = '#ffffff', wireframe = false, position = [0, 0, 0], selected, rotating, onClick, onToggleRotate, onLayout }) {
   const meshRef = useRef()
   const obj = useLoader(OBJLoader, objUrl ?? `/models/${encodeURIComponent(name)}.obj`)
   const texture = useLoader(TextureLoader, textureUrl ?? '/models/__fallback.png')
@@ -34,7 +34,7 @@ export function ModelObject({ id, name, objUrl, texture: textureUrl, roughness =
   // Pivote: girar sobre Y cuando está seleccionado
   const pivotRef = useRef()
   useFrame((_, delta) => {
-    if (selected && pivotRef.current) {
+    if (rotating && pivotRef.current) {
       pivotRef.current.rotation.y += delta * 0.8
     }
   })
@@ -65,8 +65,18 @@ export function ModelObject({ id, name, objUrl, texture: textureUrl, roughness =
       </group>
 
       <Html position={[0, labelY, 0]} center distanceFactor={6}>
-        <div className={`model-label ${selected ? 'model-label--active' : ''}`}>
-          {name}
+        <div className="model-label-wrap">
+          <div className={`model-label ${selected ? 'model-label--active' : ''}`}>
+            {name}
+          </div>
+          {selected && (
+            <button
+              className={`model-rotate-btn ${rotating ? 'active' : ''}`}
+              onClick={e => { e.stopPropagation(); onToggleRotate?.() }}
+            >
+              {rotating ? '⏸' : '▶'}
+            </button>
+          )}
         </div>
       </Html>
     </group>
