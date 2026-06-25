@@ -1,0 +1,213 @@
+.viewer-shell {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Top bar ─────────────────────────────── */
+.viewer-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  height: 48px;
+  border-bottom: 1px solid rgba(200,169,126,0.12);
+  flex-shrink: 0;
+  background: #0c0c0c;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--gold-dim);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  padding: 6px 10px;
+  border: 1px solid rgba(200,169,126,0.15);
+  border-radius: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.back-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+.topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--white);
+  margin-left: 8px;
+}
+
+.topbar-actions { margin-left: auto; }
+
+.toolbar-btn {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  border: 1px solid rgba(200,169,126,0.3);
+  padding: 6px 14px;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.toolbar-btn:hover { background: rgba(200,169,126,0.08); }
+
+/* ── Body ────────────────────────────────── */
+.viewer-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 200px 1fr 220px;
+  overflow: hidden;
+}
+
+/* ── Panels ──────────────────────────────── */
+.scene-panel, .props-panel {
+  background: #0c0c0c;
+  border-right: 1px solid rgba(200,169,126,0.08);
+  padding: 16px 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.props-panel {
+  border-right: none;
+  border-left: 1px solid rgba(200,169,126,0.08);
+  padding: 16px;
+  gap: 0;
+}
+
+.panel-section-title {
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  padding: 0 16px 10px;
+}
+
+.scene-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  color: #333;
+  font-size: 11px;
+}
+.scene-empty-sub { font-size: 9px; letter-spacing: 0.15em; color: #222; }
+
+.scene-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 11px;
+  color: var(--text);
+}
+.scene-item:hover { background: rgba(200,169,126,0.05); }
+.scene-item.active {
+  background: rgba(200,169,126,0.08);
+  color: var(--white);
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+}
+
+.scene-item-icon { color: var(--gold-dim); font-size: 10px; flex-shrink: 0; }
+.scene-item-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+.scene-item-vis { color: var(--gold-dim); font-size: 10px; flex-shrink: 0; padding: 2px; }
+
+/* ── Viewport ────────────────────────────── */
+.viewport {
+  position: relative;
+  background: var(--black);
+}
+
+.viewport-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.drop-zone-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #333;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* ── Props panel ─────────────────────────── */
+.props-name {
+  font-size: 13px;
+  color: var(--white);
+  margin-bottom: 4px;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.props-badge {
+  display: inline-block;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--gold-dim);
+  border: 1px solid rgba(200,169,126,0.2);
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.transform-group { margin-bottom: 18px; }
+
+.transform-label {
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+
+.transform-inputs { display: flex; flex-direction: column; gap: 5px; }
+
+.xyz-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 2px;
+  padding: 4px 8px;
+  cursor: text;
+}
+
+.xyz-axis {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  width: 12px;
+  flex-shrink: 0;
+}
+.axis-x { color: #e05050; }
+.axis-y { color: #50c050; }
+.axis-z { color: #5080e0; }
+
+.xyz-input input {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-size: 11px;
+  text-align: right;
+}
+.xyz-input input::-webkit-inner-spin-button { opacity: 0; }

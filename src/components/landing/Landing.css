@@ -1,0 +1,263 @@
+/* ── Shell ───────────────────────────────── */
+.landing {
+  position: fixed;
+  inset: 0;
+  background: #080808;
+  overflow: hidden;
+}
+
+/* ── Canvas ──────────────────────────────── */
+.anim-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Loading ─────────────────────────────── */
+.loading-veil {
+  position: absolute;
+  inset: 0;
+  background: #080808;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 30;
+}
+
+.loading-label {
+  font-size: 8px;
+  letter-spacing: 0.45em;
+  color: rgba(200,169,126,0.35);
+}
+
+.loading-bar-wrap {
+  width: 180px;
+  height: 1px;
+  background: rgba(200,169,126,0.1);
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  background: #C8A97E;
+  animation: loadSweep 1.4s ease-in-out infinite;
+}
+
+@keyframes loadSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* ── Portal overlay ──────────────────────── */
+.portal-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+
+.portal-grad {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.45) 55%, rgba(8,8,8,0.15) 100%),
+    linear-gradient(to top,   rgba(8,8,8,0.7)  0%, transparent 45%),
+    linear-gradient(to bottom,rgba(8,8,8,0.55) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+/* ── Animaciones de entrada ──────────────── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.portal-animate-down {
+  animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.portal-animate-up {
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.portal-animate-up-delay {
+  opacity: 0;
+  animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+/* ── Header ──────────────────────────────── */
+.landing-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 48px;
+  z-index: 10;
+  border-bottom: 1px solid rgba(200,169,126,0.08);
+}
+
+.logo-mark { flex-shrink: 0; }
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.logo-name {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: #F0EDE8;
+}
+
+.logo-sub {
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: rgba(200,169,126,0.5);
+}
+
+.landing-nav { margin-left: auto; }
+
+.nav-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: rgba(200,169,126,0.5);
+}
+
+/* ── Slide content ───────────────────────── */
+.slide-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 100px;
+  max-width: 560px;
+  z-index: 5;
+}
+
+.slide-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.slide-index {
+  font-size: 11px;
+  font-weight: 500;
+  color: #C8A97E;
+  letter-spacing: 0.2em;
+}
+
+.slide-divider {
+  width: 32px;
+  height: 1px;
+  background: rgba(200,169,126,0.4);
+}
+
+.slide-label {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.4);
+}
+
+.slide-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.slide-title {
+  font-size: clamp(42px, 5.5vw, 72px);
+  font-weight: 300;
+  color: #F0EDE8;
+  line-height: 1;
+}
+
+.slide-subtitle {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: #C8A97E;
+  text-transform: uppercase;
+}
+
+.slide-desc {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.5);
+  max-width: 400px;
+}
+
+.slide-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(200,169,126,0.7);
+  border: 1px solid rgba(200,169,126,0.22);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 14px 28px;
+  background: transparent;
+  border: 1px solid #C8A97E;
+  color: #C8A97E;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  width: fit-content;
+  font-family: inherit;
+}
+
+.slide-cta:hover {
+  background: #C8A97E;
+  color: #080808;
+}
+
+/* ── Footer ──────────────────────────────── */
+.landing-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 48px;
+  z-index: 10;
+  border-top: 1px solid rgba(200,169,126,0.08);
+}
+
+.footer-copy, .footer-right {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: rgba(200,169,126,0.4);
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 768px) {
+  .slide-content  { padding: 100px 28px 80px; max-width: 100%; }
+  .landing-header { padding: 20px 28px; }
+  .landing-footer { padding: 16px 28px; }
+  .slide-desc     { max-width: 100%; }
+}
