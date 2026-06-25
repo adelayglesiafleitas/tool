@@ -13,6 +13,7 @@ export function ModelObject({ id, name, texture: textureUrl, roughness = 0.6, me
     const clone = obj.clone(true)
     clone.traverse(child => {
       if (!child.isMesh) return
+      child.geometry.computeVertexNormals()
       child.material = new MeshStandardMaterial({
         map: textureUrl ? texture : null,
         color,
@@ -60,24 +61,6 @@ export function ModelObject({ id, name, texture: textureUrl, roughness = 0.6, me
           <primitive object={scene} />
         </group>
 
-        {selected && (
-          <primitive
-            object={(() => {
-              const c = scene.clone(true)
-              c.traverse(ch => {
-                if (ch.isMesh) {
-                  ch.material = new MeshStandardMaterial({
-                    color: 0xC8A97E,
-                    wireframe: true,
-                    opacity: 0.2,
-                    transparent: true,
-                  })
-                }
-              })
-              return c
-            })()}
-          />
-        )}
       </group>
 
       <Html position={[0, labelY, 0]} center distanceFactor={6}>

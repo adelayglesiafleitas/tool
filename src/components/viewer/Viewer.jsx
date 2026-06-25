@@ -148,7 +148,7 @@ function ColorSwatch({ value, onChange }) {
 
 // ──────────────────────────────────────────────────────
 const DEF_MAT = { albedo: '#ffffff', albedoTex: null, roughness: 0.6, roughnessTex: null, metalness: 0.1, metalnessTex: null, normalTex: null, normalInt: 1, emissive: '#000000', emissiveTex: null, emissiveInt: 1, aoTex: null, aoInt: 1, wireframe: false }
-const DEF_LIGHTS = { ambientInt: 0.5, envPreset: 'city', envInt: 1, envRot: 0, dirColor: '#ffffff', dirInt: 1.2, dirX: 5, dirY: 8, dirZ: 5, dirShadow: true }
+const DEF_LIGHTS = { ambientInt: 0.5, envPreset: 'night', envInt: 0.3, envRot: 0, dirColor: '#ffffff', dirInt: 1.5, dirX: 5, dirY: 8, dirZ: 5, dirShadow: true }
 
 export default function Viewer({ onBack }) {
   const [objects, setObjects] = useState(() =>
@@ -285,7 +285,6 @@ export default function Viewer({ onBack }) {
               intensity={lights.dirInt} color={lights.dirColor}
               castShadow={lights.dirShadow}
             />
-            <gridHelper args={[20, 20, '#181818', '#111']} />
             <OrbitControls ref={controlsRef} makeDefault />
             <CameraFocus controlsRef={controlsRef} target={focusTarget} size={focusSize} />
             <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
