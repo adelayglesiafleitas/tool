@@ -4,9 +4,9 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
 import { TextureLoader, MeshStandardMaterial, Box3, Vector3 } from 'three'
 import { useMemo, useRef, useLayoutEffect } from 'react'
 
-export function ModelObject({ id, name, texture: textureUrl, roughness = 0.6, metalness = 0.1, color = '#ffffff', wireframe = false, position = [0, 0, 0], selected, onClick, onLayout }) {
+export function ModelObject({ id, name, objUrl, texture: textureUrl, roughness = 0.6, metalness = 0.1, color = '#ffffff', wireframe = false, position = [0, 0, 0], selected, onClick, onLayout }) {
   const meshRef = useRef()
-  const obj = useLoader(OBJLoader, `/models/${name}.obj`)
+  const obj = useLoader(OBJLoader, objUrl ?? `/models/${encodeURIComponent(name)}.obj`)
   const texture = useLoader(TextureLoader, textureUrl ?? '/models/__fallback.png')
 
   const scene = useMemo(() => {

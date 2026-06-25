@@ -13,11 +13,17 @@ function modelsPlugin() {
     const dir = path.resolve('public/models')
     if (!fs.existsSync(dir)) return []
     return fs.readdirSync(dir)
-      .filter(f => f.endsWith('.obj'))
+      .filter(f => f.toLowerCase().endsWith('.obj'))
       .map(f => {
-        const name = f.replace('.obj', '')
-        const ext = TEXTURE_EXTS.find(e => fs.existsSync(path.join(dir, name + e)))
-        return { name, texture: ext ? `/models/${name}${ext}` : null }
+        const name = f.replace(/\.obj$/i, '').trim()
+        const ext = TEXTURE_EXTS.find(e =>
+          fs.existsSync(path.join(dir, name + e))
+        )
+        return {
+          name,
+          objUrl: `/models/${encodeURIComponent(f)}`,
+          texture: ext ? `/models/${encodeURIComponent(name + ext)}` : null,
+        }
       })
   }
 

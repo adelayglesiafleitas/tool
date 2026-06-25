@@ -152,7 +152,7 @@ const DEF_LIGHTS = { ambientInt: 0.5, envPreset: 'night', envInt: 0.3, envRot: 0
 
 export default function Viewer({ onBack }) {
   const [objects, setObjects] = useState(() =>
-    PRESET_MODELS.map(m => ({ ...m, id: m.name, visible: true, position:[0,0,0], rotation:[0,0,0], scale:[1,1,1], mat: { ...DEF_MAT } }))
+    PRESET_MODELS.map(m => ({ ...m, id: m.name, visible: true, position:[0,0,0], rotation:[0,0,0], scale:[1,1,1], mat:{ ...DEF_MAT } }))
   )
   const [boundsMap, setBoundsMap] = useState({})
   const [selectedId, setSelectedId] = useState(null)
@@ -293,7 +293,7 @@ export default function Viewer({ onBack }) {
             <Environment preset={lights.envPreset} intensity={lights.envInt} />
             <Suspense fallback={null}>
               {objects.filter(o => o.visible).map((obj, i) => (
-                <ModelObject key={obj.id} id={obj.id} name={obj.name}
+                <ModelObject key={obj.id} id={obj.id} name={obj.name} objUrl={obj.objUrl}
                   texture={obj.mat.albedoTex ?? obj.texture}
                   roughness={obj.mat.roughness} metalness={obj.mat.metalness}
                   color={obj.mat.albedo} wireframe={obj.mat.wireframe}
