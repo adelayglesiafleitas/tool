@@ -12,8 +12,11 @@ function modelsPlugin() {
   function scan() {
     const dir = path.resolve('public/models')
     if (!fs.existsSync(dir)) return []
+    const leadingNum = f => parseInt(f.match(/^(\d+)/)?.[1] ?? '0', 10)
+
     return fs.readdirSync(dir)
       .filter(f => f.toLowerCase().endsWith('.obj'))
+      .sort((a, b) => leadingNum(a) - leadingNum(b))
       .map(f => {
         const name = f.replace(/\.obj$/i, '').trim()
         const ext = TEXTURE_EXTS.find(e =>
