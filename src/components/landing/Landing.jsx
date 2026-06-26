@@ -51,7 +51,7 @@ export default function Landing({ onLaunch }) {
             </div>
             <div className="logo-text">
               <span className="logo-name">LALIVINGSTON</span>
-              <span className="logo-sub">STUDIO</span>
+              <span className="logo-sub">TOOLS</span>
             </div>
             <nav className="landing-nav">
               <span className="nav-label">WORKSPACE</span>
